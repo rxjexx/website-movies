@@ -1,6 +1,6 @@
 [build]
 command = "echo 'Build complete'"
-publish = "frontend"
+publish = "."
 functions = "netlify/functions"
 
 [[redirects]]
