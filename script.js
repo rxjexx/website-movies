@@ -62,8 +62,13 @@ async function fetchAPI(endpoint) {
         // Build the correct URL based on environment
         if (API_BASE_URL === '/.netlify/functions') {
             // Convert /api/movies/popular to /movies-popular
-            const parts = endpoint.replace(/^\/api\//, '').split('/');
-            url = `/.netlify/functions/${parts.join('-')}${endpoint.includes('?') ? '?' + endpoint.split('?')[1] : ''}`;
+            // Remove /api/ prefix and query string
+            const pathOnly = endpoint.split('?')[0].replace(/^\/api\//, '');
+            const queryString = endpoint.includes('?') ? '?' + endpoint.split('?')[1] : '';
+            
+            // Convert path to function name: movies/popular → movies-popular
+            const functionName = pathOnly.replace(/\//g, '-');
+            url = `/.netlify/functions/${functionName}${queryString}`;
         } else {
             url = `${API_BASE_URL}${endpoint}`;
         }
