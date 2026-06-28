@@ -1,0 +1,40 @@
+[build]
+command = "echo 'Build complete'"
+publish = "frontend"
+functions = "netlify/functions"
+
+[[redirects]]
+from = "/api/movies/trending"
+to = "/.netlify/functions/movies-trending"
+status = 200
+
+[[redirects]]
+from = "/api/movies/popular"
+to = "/.netlify/functions/movies-popular"
+status = 200
+
+[[redirects]]
+from = "/api/shows/popular"
+to = "/.netlify/functions/shows-popular"
+status = 200
+
+[[redirects]]
+from = "/api/search"
+to = "/.netlify/functions/search"
+status = 200
+
+[[redirects]]
+from = "/api/movies/streams/*"
+to = "/.netlify/functions/movies-streams"
+status = 200
+
+# SPA fallback for routing
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+
+[context.production.environment]
+TMDB_API_KEY = ""
+TMDB_BASE_URL = "https://api.themoviedb.org/3"
+NODE_ENV = "production"
